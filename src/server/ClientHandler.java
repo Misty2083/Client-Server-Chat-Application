@@ -18,7 +18,7 @@ public class ClientHandler implements Runnable {
         this.socket = socket;
         this.out = new PrintWriter(socket.getOutputStream(), true);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        
+
         // Ask for username
         out.println(Colors.CYAN + "Welcome to the chat! Please enter your name:" + Colors.RESET);
         try {
@@ -46,9 +46,9 @@ public class ClientHandler implements Runnable {
                 }
 
                 String timestamp = SDF.format(new Date());
-                String formattedMsg = Colors.BLUE + "[" + timestamp + "] " + 
-                                     Colors.BOLD + Colors.PURPLE + username + ": " + 
-                                     Colors.RESET + message;
+                String formattedMsg = Colors.BLUE + "[" + timestamp + "] " +
+                        Colors.BOLD + Colors.PURPLE + username + ": " +
+                        Colors.RESET + message;
 
                 ChatServer.broadcast(formattedMsg, this);
                 log("[" + timestamp + "] " + username + ": " + message);
@@ -79,6 +79,10 @@ public class ClientHandler implements Runnable {
     private void log(String msg) {
         String timestamp = SDF.format(new Date());
         System.out.println(Colors.YELLOW + "[SERVER LOG " + timestamp + "] " + Colors.RESET + msg);
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     public String getUsername() {
